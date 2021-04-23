@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/IonBatir/texter-api/issues"
   },
-  "homepage": "https://github.com/IonBatir/texter-api#readme"
+  "homepage": "https://github.com/IonBatir/texter-api#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
 }
