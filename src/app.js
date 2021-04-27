@@ -11,7 +11,7 @@ mongoose.connect(MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true}).t
     app.use(helmet());
 
     app.use(express.json());
-    app.use(express.urlencoded());
+    app.use(express.urlencoded({extended: false}));
 
     app.get('/', (req, res) => {
         res.send('Hello World!');
