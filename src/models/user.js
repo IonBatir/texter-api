@@ -55,10 +55,6 @@ schema.statics.isEmailUsed = async function (email) {
     return !!user;
 };
 
-schema.statics.findByUsername = function (username) {
-    return this.find({username: new RegExp(username, 'i')});
-};
-
 schema.methods.isPasswordCorrect = function (password) {
     return bcrypt.compare(password, this.password);
 };
