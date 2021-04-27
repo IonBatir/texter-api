@@ -8,6 +8,10 @@ function getAll() {
     return User.find();
 }
 
+function getByEmail(email) {
+    return User.findOne({email});
+}
+
 function getByUsername(username) {
     return User.find({username: new RegExp(username, 'i')});
 }
@@ -40,9 +44,15 @@ function remove(id) {
     return User.findByIdAndDelete(id);
 }
 
+async function isEmailUsed(email) {
+    const user = await User.findOne({email});
+    return !!user;
+}
+
 module.exports = {
     get,
     getAll,
+    getByEmail,
     getByUsername,
     add,
     updateAvatar,
@@ -50,5 +60,6 @@ module.exports = {
     updateLastAccess,
     updatePassword,
     updateUsername,
-    remove
+    remove,
+    isEmailUsed
 };
