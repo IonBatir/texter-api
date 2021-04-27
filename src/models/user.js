@@ -1,29 +1,30 @@
 const {model, Schema} = require('mongoose');
 const bcrypt = require('bcryptjs');
 
-const {EMAIL_REGEX} = require('../constants');
+const {EMAIL_REGEX, ERROR} = require('../constants');
 const {SALT_LENGTH} = require('../secrets');
+const {generateErrorCode} = require('../utils');
 
 const schema = new Schema({
     email: {
         type: String,
-        required: [true, 'EmailRequired'],
-        validate: [EMAIL_REGEX, 'EmailNotValid'],
+        required: [true, generateErrorCode('email', ERROR.REQUIRED)],
+        validate: [EMAIL_REGEX, generateErrorCode('email', ERROR.NOT_VALID)],
         unique: true,
         lowercase: true,
         trim: true,
     },
     username: {
         type: String,
-        required: [true, 'UsernameRequired'],
-        minlength: [3, 'UsernameMinLength3'],
-        maxlength: [12, 'UsernameMaxLength12'],
+        required: [true, generateErrorCode('username', ERROR.REQUIRED)],
+        minlength: [3, generateErrorCode('username', ERROR.MIN_LENGTH, 3)],
+        maxlength: [12, generateErrorCode('username', ERROR.MAX_LENGTH, 12)],
         trim: true,
     },
     password: {
         type: String,
-        required: [true, 'PasswordRequired'],
-        minlength: [8, 'PasswordMinLength8'],
+        required: [true, generateErrorCode('password', ERROR.REQUIRED)],
+        minlength: [8, generateErrorCode('password', ERROR.MIN_LENGTH, 8)],
         trim: true,
     },
     bio: {
@@ -40,7 +41,7 @@ const schema = new Schema({
     }
 }, {timestamps: true});
 
-schema.pre('save', async (next) => {
+schema.pre('save', async function(next) {
     try {
         if (this.isModified('password'))
             this.password = await bcrypt.hash(this.password, SALT_LENGTH);
@@ -49,11 +50,6 @@ schema.pre('save', async (next) => {
         next(error);
     }
 });
-
-schema.statics.isEmailUsed = async function (email) {
-    const user = await this.findOne({email});
-    return !!user;
-};
 
 schema.methods.isPasswordCorrect = function (password) {
     return bcrypt.compare(password, this.password);
