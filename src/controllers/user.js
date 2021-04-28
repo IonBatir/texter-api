@@ -20,6 +20,10 @@ function add(email, username, password) {
     return User.create({email, username, password});
 }
 
+function update(id, data) {
+    return User.findByIdAndUpdate(id, data);
+}
+
 function updateUsername(id, username) {
     return User.findByIdAndUpdate(id, {username});
 }
@@ -55,6 +59,7 @@ module.exports = {
     getByEmail,
     getByUsername,
     add,
+    update,
     updateAvatar,
     updateBio,
     updateLastAccess,
