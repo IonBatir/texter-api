@@ -27,6 +27,14 @@ const schema = new Schema({
         minlength: [8, generateErrorCode('password', ERROR.MIN_LENGTH, 8)],
         trim: true,
     },
+    firstName: {
+        type: String,
+        trim: true
+    },
+    lastName: {
+        type: String,
+        trim: true
+    },
     bio: {
         type: String,
         trim: true
@@ -41,7 +49,7 @@ const schema = new Schema({
     }
 }, {timestamps: true});
 
-schema.pre('save', async function(next) {
+schema.pre('save', async function (next) {
     try {
         if (this.isModified('password'))
             this.password = await bcrypt.hash(this.password, SALT_LENGTH);
