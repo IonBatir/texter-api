@@ -49,3 +49,5 @@ router.post("/login", (req, res) => {
         })
         .catch(handleError(res));
 });
+
+module.exports = router;
