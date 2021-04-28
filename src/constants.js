@@ -5,6 +5,7 @@ const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"
 const ERROR = {
     DUPLICATE: 'Duplicate',
     NOT_CORRECT: 'NotCorrect',
+    NOT_FOUND: 'NotFound',
     NOT_MATCH: 'NotMatch',
     NOT_VALID: 'NotValid',
     MAX_LENGTH: 'MaxLength',
