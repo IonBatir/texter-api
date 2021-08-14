@@ -1,70 +1,70 @@
-const User = require('../models/user');
+const User = require("../models/user");
 
 function get(id) {
-    return User.findById(id);
+  return User.findById(id);
 }
 
 function getAll() {
-    return User.find();
+  return User.find();
 }
 
 function getByEmail(email) {
-    return User.findOne({email});
+  return User.findOne({ email });
 }
 
 function getByUsername(username) {
-    return User.find({username: new RegExp(username, 'i')});
+  return User.find({ username: new RegExp(username, "i") });
 }
 
 function add(email, username, password) {
-    return User.create({email, username, password});
+  return User.create({ email, username, password });
 }
 
 function update(id, data) {
-    return User.findByIdAndUpdate(id, data);
+  return User.findByIdAndUpdate(id, data);
 }
 
 function updateUsername(id, username) {
-    return User.findByIdAndUpdate(id, {username});
+  return User.findByIdAndUpdate(id, { username });
 }
 
 function updatePassword(id, password) {
-    return User.findByIdAndUpdate(id, {password});
+  return User.findByIdAndUpdate(id, { password });
 }
 
 function updateBio(id, bio) {
-    return User.findByIdAndUpdate(id, {bio});
+  return User.findByIdAndUpdate(id, { bio });
 }
 
 function updateLastAccess(id) {
-    return User.findByIdAndUpdate(id, {lastAccess: Date.now()});
+  return User.findByIdAndUpdate(id, { lastAccess: Date.now() });
 }
 
 function updateAvatar(id, avatar) {
-    return User.findByIdAndUpdate(id, {avatar});
+  return User.findByIdAndUpdate(id, { avatar });
 }
 
 function remove(id) {
-    return User.findByIdAndDelete(id);
+  return User.findByIdAndDelete(id);
 }
 
 async function isEmailUsed(email) {
-    const user = await User.findOne({email});
-    return !!user;
+  const user = await User.findOne({ email });
+  return !!user;
 }
 
 module.exports = {
-    get,
-    getAll,
-    getByEmail,
-    getByUsername,
-    add,
-    update,
-    updateAvatar,
-    updateBio,
-    updateLastAccess,
-    updatePassword,
-    updateUsername,
-    remove,
-    isEmailUsed
+  get,
+  getAll,
+  getByEmail,
+  getByUsername,
+  add,
+  update,
+  updateAvatar,
+  updateBio,
+  updateLastAccess,
+  updatePassword,
+  updateUsername,
+  remove,
+  isEmailUsed,
 };
